@@ -16,27 +16,28 @@ Briefly, this project focuses on the KDDCup99 dataset, performing advanced analy
 6. [Suggestions for Development](#suggestions-for-development)
 
 ---
-
 ## Important Point
 - I would like to highlight an important point about this project and its associated file. Please note that this is an educational project designed to be followed step by step. Since RapidMiner is an accumulative data science tool that does not allow separation of different project components, the README file plays a critical role in guiding users through the process. It is, therefore, the most essential part of this project.
 
 ---
 
 ## Project Objectives
-- List the goals of the project.
-- Example:
-  - To analyze the KDDCup99 dataset for patterns and anomalies.
-  - To implement clustering and classification algorithms using RapidMiner.
-  - To evaluate the performance of machine learning models for predictive analysis.
+- In this project, we aim to utilize clustering algorithms within various machine learning models to identify and analyze traffic patterns. The primary objective of our model is to distinguish between normal and abnormal traffic, enabling the detection and prevention of malicious network intrusions. Beyond identifying the malicious nature of these intrusions, our model is also designed to classify the specific type of attack.
+
+- Additionally, we will develop and train a decision tree model capable of predicting the categories of security attacks. To accomplish these objectives, we will leverage the RapidMiner software for data preprocessing, model implementation, and analysis.
 
 ---
 
 ## Data Source
-- Describe the dataset used in the project.
-- Example:
-  - **Dataset**: KDDCup99
-  - **Description**: A widely used dataset for network intrusion detection, containing various types of attacks and normal traffic.
-  - **Source**: [KDDCup99 Dataset](http://kdd.ics.uci.edu/databases/kddcup99/kddcup99.html)
+- In this project, we utilize the KDDCup99 dataset to detect suspicious network traffic and identify various types of network attacks. The KDDCup99 dataset, originally created for the 3rd International Knowledge Discovery and Data Mining Tools Competition, is one of the most renowned datasets in the field of network intrusion detection. It contains a wide range of data from simulated intrusions in a military network environment and is specifically designed to build predictive models capable of distinguishing between 'bad' connections (intrusions or attacks) and 'good' connections (normal traffic). The key features of the KDDCup99 dataset include:
+   - **Number of Records**: The dataset contains **494,021 records**.
+   - **Number of Features**: The dataset includes **42 features**.
+   - **Key Features**: Some of the most important features are `duration`, `protocol_type`, `service`, `flag`, `src_bytes`, `dst_bytes`, and more.
+   - **Output Labels**: The dataset has **23 different output labels**, where one label is `normal` (representing good connections) and the rest represent various types of bad connections (intrusions or attacks).
+
+   For more details about the features and their descriptions, visit the official website: [KDDCup99 Dataset](http://kdd.ics.uci.edu/databases/kddcup99/kddcup99.html).
+      
+   **Dataset Download**: The dataset can be downloaded from [Kaggle](https://www.kaggle.com).
 
 ---
 
