@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?><process version="9.10.000">
+  <context>
+    <input/>
+    <output/>
+    <macros/>
+  </context>
+  <operator activated="true" class="process" compatibility="9.10.000" expanded="true" name="Process">
+    <parameter key="logverbosity" value="init"/>
+    <parameter key="random_seed" value="2001"/>
+    <parameter key="send_mail" value="never"/>
+    <parameter key="notification_email" value=""/>
+    <parameter key="process_duration_for_mail" value="30"/>
+    <parameter key="encoding" value="SYSTEM"/>
+    <process expanded="true">
+      <operator activated="true" class="retrieve" compatibility="9.10.000" expanded="true" height="68" name="Retrieve kddcup.data" width="90" x="45" y="34">
+        <parameter key="repository_entry" value="data/kddcup.data"/>
+      </operator>
+      <operator activated="true" class="subprocess" compatibility="9.10.000" expanded="true" height="82" name="PreprocessingData" width="90" x="179" y="34">
+        <process expanded="true">
+          <operator activated="true" class="remove_duplicates" compatibility="9.10.000" expanded="true" height="103" name="RemoveDuplicates" width="90" x="45" y="34">
+            <parameter key="attribute_filter_type" value="all"/>
+            <parameter key="attribute" value=""/>
+            <parameter key="attributes" value=""/>
+            <parameter key="use_except_expression" value="false"/>
+            <parameter key="value_type" value="attribute_value"/>
+            <parameter key="use_value_type_exception" value="false"/>
+            <parameter key="except_value_type" value="time"/>
+            <parameter key="block_type" value="attribute_block"/>
+            <parameter key="use_block_type_exception" value="false"/>
+            <parameter key="except_block_type" value="value_matrix_row_start"/>
+            <parameter key="invert_selection" value="false"/>
+            <parameter key="include_special_attributes" value="false"/>
+            <parameter key="treat_missing_values_as_duplicates" value="false"/>
+          </operator>
+          <operator activated="true" class="filter_examples" compatibility="9.10.000" expanded="true" height="103" name="FilterExamplesNotM" width="90" x="112" y="238">
+            <parameter key="parameter_expression" value=""/>
+            <parameter key="condition_class" value="custom_filters"/>
+            <parameter key="invert_filter" value="false"/>
+            <list key="filters_list">
+              <parameter key="filters_entry_key" value="duration: continuous.is_not_missing."/>
+            </list>
+            <parameter key="filters_logic_and" value="true"/>
+            <parameter key="filters_check_metadata" value="true"/>
+          </operator>
+          <operator activated="true" class="replace_missing_values" compatibility="9.10.000" expanded="true" height="103" name="ReplaceMissingValues" width="90" x="179" y="34">
+            <parameter key="return_preprocessing_model" value="false"/>
+            <parameter key="create_view" value="false"/>
+            <parameter key="attribute_filter_type" value="all"/>
+            <parameter key="attribute" value=""/>
+            <parameter key="attributes" value=""/>
+            <parameter key="use_except_expression" value="false"/>
+            <parameter key="value_type" value="attribute_value"/>
+            <parameter key="use_value_type_exception" value="false"/>
+            <parameter key="except_value_type" value="time"/>
+            <parameter key="block_type" value="attribute_block"/>
+            <parameter key="use_block_type_exception" value="false"/>
+            <parameter key="except_block_type" value="value_matrix_row_start"/>
+            <parameter key="invert_selection" value="false"/>
+            <parameter key="include_special_attributes" value="false"/>
+            <parameter key="default" value="average"/>
+            <list key="columns"/>
+          </operator>
+          <operator activated="true" class="normalize" compatibility="9.10.000" expanded="true" height="103" name="Normalize" width="90" x="246" y="238">
+            <parameter key="return_preprocessing_model" value="false"/>
+            <parameter key="create_view" value="false"/>
+            <parameter key="attribute_filter_type" value="subset"/>
+            <parameter key="attribute" value=""/>
+            <parameter key="attributes" value="count: continuous|diff_srv_rate: continuous|dst_bytes: continuous|dst_host_count: continuous|dst_host_diff_srv_rate: continuous|dst_host_rerror_rate: continuous|dst_host_same_src_port_rate: continuous|dst_host_same_srv_rate: continuous|dst_host_serror_rate: continuous|dst_host_srv_count: continuous|dst_host_srv_diff_host_rate: continuous|dst_host_srv_rerror_rate: continuous|dst_host_srv_serror_rate: continuous|duration: continuous|hot: continuous|num_access_files: continuous|num_compromised: continuous|num_failed_logins: continuous|num_file_creations: continuous|num_outbound_cmds: continuous|num_root: continuous|num_shells: continuous|rerror_rate: continuous|root_shell: continuous|same_srv_rate: continuous|serror_rate: continuous|src_bytes: continuous|srv_count: continuous|srv_diff_host_rate: continuous|srv_rerror_rate: continuous|srv_serror_rate: continuous|su_attempted: continuous|urgent: continuous|wrong_fragment: continuous"/>
+            <parameter key="use_except_expression" value="false"/>
+            <parameter key="value_type" value="numeric"/>
+            <parameter key="use_value_type_exception" value="false"/>
+            <parameter key="except_value_type" value="real"/>
+            <parameter key="block_type" value="value_series"/>
+            <parameter key="use_block_type_exception" value="false"/>
+            <parameter key="except_block_type" value="value_series_end"/>
+            <parameter key="invert_selection" value="false"/>
+            <parameter key="include_special_attributes" value="false"/>
+            <parameter key="method" value="Z-transformation"/>
+            <parameter key="min" value="0.0"/>
+            <parameter key="max" value="1.0"/>
+            <parameter key="allow_negative_values" value="false"/>
+          </operator>
+          <operator activated="true" class="nominal_to_numerical" compatibility="9.10.000" expanded="true" height="103" name="Nominal2Numerical" width="90" x="313" y="34">
+            <parameter key="return_preprocessing_model" value="false"/>
+            <parameter key="create_view" value="false"/>
+            <parameter key="attribute_filter_type" value="subset"/>
+            <parameter key="attribute" value=""/>
+            <parameter key="attributes" value="flag: symbolic|is_guest_login: symbolic|is_host_login: symbolic|land: symbolic|logged_in: symbolic|protocol_type: symbolic|service: symbolic"/>
+            <parameter key="use_except_expression" value="false"/>
+            <parameter key="value_type" value="nominal"/>
+            <parameter key="use_value_type_exception" value="false"/>
+            <parameter key="except_value_type" value="file_path"/>
+            <parameter key="block_type" value="single_value"/>
+            <parameter key="use_block_type_exception" value="false"/>
+            <parameter key="except_block_type" value="single_value"/>
+            <parameter key="invert_selection" value="false"/>
+            <parameter key="include_special_attributes" value="false"/>
+            <parameter key="coding_type" value="dummy coding"/>
+            <parameter key="use_comparison_groups" value="false"/>
+            <list key="comparison_groups"/>
+            <parameter key="unexpected_value_handling" value="all 0 and warning"/>
+            <parameter key="use_underscore_in_name" value="false"/>
+          </operator>
+          <operator activated="true" class="set_role" compatibility="9.10.000" expanded="true" height="82" name="SetRole" width="90" x="447" y="34">
+            <parameter key="attribute_name" value="connection_type"/>
+            <parameter key="target_role" value="label"/>
+            <list key="set_additional_roles"/>
+          </operator>
+          <operator activated="true" class="weight_by_information_gain" compatibility="9.10.000" expanded="true" height="82" name="WeightByInfoGain" width="90" x="581" y="34">
+            <parameter key="normalize_weights" value="false"/>
+            <parameter key="sort_weights" value="true"/>
+            <parameter key="sort_direction" value="ascending"/>
+          </operator>
+          <operator activated="true" class="select_by_weights" compatibility="9.10.000" expanded="true" height="103" name="SelectByWeights" width="90" x="715" y="34">
+            <parameter key="weight_relation" value="greater equals"/>
+            <parameter key="weight" value="0.2"/>
+            <parameter key="k" value="10"/>
+            <parameter key="p" value="0.5"/>
+            <parameter key="deselect_unknown" value="true"/>
+            <parameter key="use_absolute_weights" value="true"/>
+          </operator>
+          <operator activated="false" class="detect_outlier_lof" compatibility="9.10.000" expanded="true" height="82" name="DetectOutlierLOF" width="90" x="380" y="187">
+            <parameter key="minimal_points_lower_bound" value="10"/>
+            <parameter key="minimal_points_upper_bound" value="20"/>
+            <parameter key="distance_function" value="euclidian distance"/>
+          </operator>
+          <connect from_port="in 1" to_op="RemoveDuplicates" to_port="example set input"/>
+          <connect from_op="RemoveDuplicates" from_port="example set output" to_op="FilterExamplesNotM" to_port="example set input"/>
+          <connect from_op="FilterExamplesNotM" from_port="example set output" to_op="ReplaceMissingValues" to_port="example set input"/>
+          <connect from_op="ReplaceMissingValues" from_port="example set output" to_op="Normalize" to_port="example set input"/>
+          <connect from_op="Normalize" from_port="example set output" to_op="Nominal2Numerical" to_port="example set input"/>
+          <connect from_op="Nominal2Numerical" from_port="example set output" to_op="SetRole" to_port="example set input"/>
+          <connect from_op="SetRole" from_port="example set output" to_op="WeightByInfoGain" to_port="example set"/>
+          <connect from_op="WeightByInfoGain" from_port="weights" to_op="SelectByWeights" to_port="weights"/>
+          <connect from_op="WeightByInfoGain" from_port="example set" to_op="SelectByWeights" to_port="example set input"/>
+          <connect from_op="SelectByWeights" from_port="example set output" to_port="out 1"/>
+          <portSpacing port="source_in 1" spacing="0"/>
+          <portSpacing port="source_in 2" spacing="0"/>
+          <portSpacing port="sink_out 1" spacing="0"/>
+          <portSpacing port="sink_out 2" spacing="0"/>
+        </process>
+      </operator>
+      <operator activated="true" class="retrieve" compatibility="9.10.000" expanded="true" height="68" name="Retrieve afterPP" width="90" x="45" y="289">
+        <parameter key="repository_entry" value="data/afterPP"/>
+      </operator>
+      <operator activated="true" class="sample" compatibility="9.10.000" expanded="true" height="82" name="Sample" width="90" x="179" y="289">
+        <parameter key="sample" value="absolute"/>
+        <parameter key="balance_data" value="false"/>
+        <parameter key="sample_size" value="1000"/>
+        <parameter key="sample_ratio" value="0.1"/>
+        <parameter key="sample_probability" value="0.1"/>
+        <list key="sample_size_per_class"/>
+        <list key="sample_ratio_per_class"/>
+        <list key="sample_probability_per_class"/>
+        <parameter key="use_local_random_seed" value="false"/>
+        <parameter key="local_random_seed" value="1992"/>
+      </operator>
+      <operator activated="true" class="dbscan" compatibility="9.10.000" expanded="true" height="82" name="Clustering" width="90" x="313" y="289">
+        <parameter key="epsilon" value="0.225"/>
+        <parameter key="min_points" value="4"/>
+        <parameter key="add_cluster_attribute" value="true"/>
+        <parameter key="add_as_label" value="false"/>
+        <parameter key="remove_unlabeled" value="false"/>
+        <parameter key="measure_types" value="MixedMeasures"/>
+        <parameter key="mixed_measure" value="MixedEuclideanDistance"/>
+        <parameter key="nominal_measure" value="NominalDistance"/>
+        <parameter key="numerical_measure" value="EuclideanDistance"/>
+        <parameter key="divergence" value="GeneralizedIDivergence"/>
+        <parameter key="kernel_type" value="radial"/>
+        <parameter key="kernel_gamma" value="1.0"/>
+        <parameter key="kernel_sigma1" value="1.0"/>
+        <parameter key="kernel_sigma2" value="0.0"/>
+        <parameter key="kernel_sigma3" value="2.0"/>
+        <parameter key="kernel_degree" value="3.0"/>
+        <parameter key="kernel_shift" value="1.0"/>
+        <parameter key="kernel_a" value="1.0"/>
+        <parameter key="kernel_b" value="0.0"/>
+      </operator>
+      <operator activated="true" class="split_data" compatibility="9.10.000" expanded="true" height="103" name="SplitData" width="90" x="313" y="34">
+        <enumeration key="partitions">
+          <parameter key="ratio" value="0.8"/>
+          <parameter key="ratio" value="0.2"/>
+        </enumeration>
+        <parameter key="sampling_type" value="stratified sampling"/>
+        <parameter key="use_local_random_seed" value="false"/>
+        <parameter key="local_random_seed" value="1992"/>
+      </operator>
+      <operator activated="true" class="concurrency:parallel_decision_tree" compatibility="9.10.000" expanded="true" height="103" name="DecisionTree" width="90" x="447" y="34">
+        <parameter key="criterion" value="information_gain"/>
+        <parameter key="maximal_depth" value="10"/>
+        <parameter key="apply_pruning" value="true"/>
+        <parameter key="confidence" value="0.1"/>
+        <parameter key="apply_prepruning" value="true"/>
+        <parameter key="minimal_gain" value="0.01"/>
+        <parameter key="minimal_leaf_size" value="2"/>
+        <parameter key="minimal_size_for_split" value="4"/>
+        <parameter key="number_of_prepruning_alternatives" value="3"/>
+      </operator>
+      <operator activated="true" class="apply_model" compatibility="9.10.000" expanded="true" height="82" name="ApplyModel" width="90" x="447" y="187">
+        <list key="application_parameters"/>
+        <parameter key="create_view" value="false"/>
+      </operator>
+      <operator activated="true" class="performance_classification" compatibility="9.10.000" expanded="true" height="82" name="Performance" width="90" x="648" y="34">
+        <parameter key="main_criterion" value="first"/>
+        <parameter key="accuracy" value="true"/>
+        <parameter key="classification_error" value="false"/>
+        <parameter key="kappa" value="false"/>
+        <parameter key="weighted_mean_recall" value="false"/>
+        <parameter key="weighted_mean_precision" value="false"/>
+        <parameter key="spearman_rho" value="false"/>
+        <parameter key="kendall_tau" value="false"/>
+        <parameter key="absolute_error" value="false"/>
+        <parameter key="relative_error" value="false"/>
+        <parameter key="relative_error_lenient" value="false"/>
+        <parameter key="relative_error_strict" value="false"/>
+        <parameter key="normalized_absolute_error" value="false"/>
+        <parameter key="root_mean_squared_error" value="false"/>
+        <parameter key="root_relative_squared_error" value="false"/>
+        <parameter key="squared_error" value="false"/>
+        <parameter key="correlation" value="false"/>
+        <parameter key="squared_correlation" value="false"/>
+        <parameter key="cross-entropy" value="false"/>
+        <parameter key="margin" value="false"/>
+        <parameter key="soft_margin_loss" value="false"/>
+        <parameter key="logistic_loss" value="false"/>
+        <parameter key="skip_undefined_labels" value="true"/>
+        <parameter key="use_example_weights" value="true"/>
+        <list key="class_weights"/>
+      </operator>
+      <connect from_op="Retrieve kddcup.data" from_port="output" to_op="PreprocessingData" to_port="in 1"/>
+      <connect from_op="PreprocessingData" from_port="out 1" to_op="SplitData" to_port="example set"/>
+      <connect from_op="Retrieve afterPP" from_port="output" to_op="Sample" to_port="example set input"/>
+      <connect from_op="Sample" from_port="example set output" to_op="Clustering" to_port="example set"/>
+      <connect from_op="Clustering" from_port="cluster model" to_port="result 3"/>
+      <connect from_op="Clustering" from_port="clustered set" to_port="result 4"/>
+      <connect from_op="SplitData" from_port="partition 1" to_op="DecisionTree" to_port="training set"/>
+      <connect from_op="SplitData" from_port="partition 2" to_op="ApplyModel" to_port="unlabelled data"/>
+      <connect from_op="DecisionTree" from_port="model" to_op="ApplyModel" to_port="model"/>
+      <connect from_op="ApplyModel" from_port="labelled data" to_op="Performance" to_port="labelled data"/>
+      <connect from_op="Performance" from_port="performance" to_port="result 1"/>
+      <connect from_op="Performance" from_port="example set" to_port="result 2"/>
+      <portSpacing port="source_input 1" spacing="0"/>
+      <portSpacing port="sink_result 1" spacing="0"/>
+      <portSpacing port="sink_result 2" spacing="0"/>
+      <portSpacing port="sink_result 3" spacing="0"/>
+      <portSpacing port="sink_result 4" spacing="0"/>
+      <portSpacing port="sink_result 5" spacing="0"/>
+      <description align="center" color="transparent" colored="true" height="105" resized="false" width="180" x="32" y="378">&amp;#1575;&amp;#1740;&amp;#1606; &amp;#1583;&amp;#1740;&amp;#1578;&amp;#1575;&amp;#1587;&amp;#1578; &amp;#1582;&amp;#1585;&amp;#1608;&amp;#1580;&amp;#1740;&lt;br/&gt;PreprocessingData&lt;br/&gt;&amp;#1607;&amp;#1587;&amp;#1578; &amp;#1705;&amp;#1607; &amp;#1576;&amp;#1585;&amp;#1575;&amp;#1740; &amp;#1587;&amp;#1585;&amp;#1593;&amp;#1578; &amp;#1576;&amp;#1740;&amp;#1588;&amp;#1578;&amp;#1585; &amp;#1575;&amp;#1740;&amp;#1606;&amp;#1580;&amp;#1575; &amp;#1705;&amp;#1662;&amp;#1740; &amp;#1588;&amp;#1583;&amp;#1607; &amp;#1575;&amp;#1587;&amp;#1578;</description>
+    </process>
+  </operator>
+</process>
