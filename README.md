@@ -18,8 +18,7 @@ Briefly, this project focuses on the KDDCup99 dataset, performing advanced analy
 ---
 
 ## Important Point
-- Highlight any critical aspects of the project that readers should know upfront.
-- Example: "This project focuses on anomaly detection in network traffic data, which is crucial for cybersecurity applications."
+- I would like to highlight an important point about this project and its associated file. Please note that this is an educational project designed to be followed step by step. Since RapidMiner is an accumulative data science tool that does not allow separation of different project components, the README file plays a critical role in guiding users through the process. It is, therefore, the most essential part of this project.
 
 ---
 
